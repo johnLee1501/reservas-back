@@ -1,4 +1,4 @@
-package com.platzi.pizza.service.dto;
+package com.kata.reservas.dto;
 
 import lombok.Data;
 

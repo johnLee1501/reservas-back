@@ -1,11 +1,12 @@
-package com.vinn.ServiceBookingSystem.dto;
+package com.kata.reservas.dto;
 
-import com.vinn.ServiceBookingSystem.enums.UserRole;
 import lombok.Data;
 
 @Data
 public class UserDto {
     private Long id;
+
+    private String userName;
 
     private String email;
 
@@ -17,5 +18,4 @@ public class UserDto {
 
     private String phone;
 
-    private UserRole role;
 }

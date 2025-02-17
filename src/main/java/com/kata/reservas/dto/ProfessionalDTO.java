@@ -3,10 +3,9 @@ package com.kata.reservas.dto;
 import lombok.Data;
 
 @Data
-public class ProfessionalDto {
+public class ProfessionalDTO {
     private Long id;
-    private Long userId; // ID del UserEntity relacionado
+    private Long userId;
     private String specialty;
     private String description;
-    // Puedes incluir otros campos relevantes
 }

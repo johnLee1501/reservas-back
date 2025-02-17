@@ -1,4 +1,4 @@
-package com.platzi.pizza.web.config;
+package com.kata.reservas.security;
 
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;

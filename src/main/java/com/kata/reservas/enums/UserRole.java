@@ -1,6 +1,6 @@
-package com.vinn.ServiceBookingSystem.enums;
+package com.kata.reservas.enums;
 
 public enum UserRole {
     CLIENT,
-    COMPANY
+    PROFESSIONAL
 }

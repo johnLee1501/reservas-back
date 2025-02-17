@@ -1,4 +1,4 @@
-package com.platzi.pizza.web.config;
+package com.kata.reservas.security;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
@@ -24,7 +24,7 @@ public class JwtUtil {
     public String create(String username) {
         return JWT.create()
                 .withSubject(username)
-                .withIssuer("platzi-pizza")
+                .withIssuer("kata-reservas")
                 .withIssuedAt(new Date())
                 .withExpiresAt(new Date(System.currentTimeMillis() + TimeUnit.DAYS.toMillis(15)))
                 .sign(algorithm);

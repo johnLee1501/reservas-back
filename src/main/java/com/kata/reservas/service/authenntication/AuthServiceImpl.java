@@ -1,51 +1,46 @@
-package com.vinn.ServiceBookingSystem.services.authenntication;
+package com.kata.reservas.service.authenntication;
 
-import com.vinn.ServiceBookingSystem.dto.SignupRequestDTO;
-import com.vinn.ServiceBookingSystem.dto.UserDto;
-import com.vinn.ServiceBookingSystem.entity.User;
-import com.vinn.ServiceBookingSystem.enums.UserRole;
-import com.vinn.ServiceBookingSystem.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
+import com.kata.reservas.dto.SignupRequestDTO;
+import com.kata.reservas.dto.UserDto;
+import com.kata.reservas.entity.RoleEntity;
+import com.kata.reservas.entity.UserEntity;
+import com.kata.reservas.enums.UserRole;
+import com.kata.reservas.repository.UserRepository;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Set;
+
 @Service
-public class AuthServiceImpl implements  AuthService {
+public class AuthServiceImpl implements AuthService {
 
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public AuthServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @Override
-    public UserDto signupClient(SignupRequestDTO signupRequestDTO) {
-        User user = new User();
-        user.setName(signupRequestDTO.getName());
-        user.setLastName(signupRequestDTO.getLastName());
+    public UserDto signup(SignupRequestDTO signupRequestDTO) {
+        UserEntity user = new UserEntity();
+        user.setUsername(signupRequestDTO.getUserName());
         user.setEmail(signupRequestDTO.getEmail());
-        user.setPhone(signupRequestDTO.getPhone());
         user.setPassword(new BCryptPasswordEncoder().encode(signupRequestDTO.getPassword()));
-        user.setRole(UserRole.CLIENT);
+        RoleEntity role = new RoleEntity();
+        role.setName(UserRole.CLIENT);
+        user.setRoles(Set.of(role));
+        user.setDisabled(false);
+        user.setLocked(false);
         userRepository.save(user);
         ModelMapper modelMapper = new ModelMapper();
         return modelMapper.map(user, UserDto.class);
     }
 
-    @Override
-    public Boolean presentByEmail(String email) {
-        return userRepository.findFirstByEmail(email) != null;
-    }
 
     @Override
-    public UserDto signupCompany(SignupRequestDTO signupRequestDTO) {
-        User user = new User();
-        user.setName(signupRequestDTO.getName());
-        user.setEmail(signupRequestDTO.getEmail());
-        user.setPhone(signupRequestDTO.getPhone());
-        user.setPassword(new BCryptPasswordEncoder().encode(signupRequestDTO.getPassword()));
-        user.setRole(UserRole.COMPANY);
-        userRepository.save(user);
-        ModelMapper modelMapper = new ModelMapper();
-        return modelMapper.map(user, UserDto.class);
+    public Boolean presentByUsername(String username) {
+        return userRepository.findByUsername(username).isPresent();
     }
+
 }

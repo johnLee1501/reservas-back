@@ -1,12 +1,12 @@
-package com.vinn.ServiceBookingSystem.services.authenntication;
+package com.kata.reservas.service.authenntication;
 
-import com.vinn.ServiceBookingSystem.dto.SignupRequestDTO;
-import com.vinn.ServiceBookingSystem.dto.UserDto;
+
+import com.kata.reservas.dto.SignupRequestDTO;
+import com.kata.reservas.dto.UserDto;
 
 public interface AuthService {
-    UserDto signupClient(SignupRequestDTO signupRequestDTO);
+    UserDto signup(SignupRequestDTO signupRequestDTO);
 
-    Boolean presentByEmail(String email);
+    Boolean presentByUsername(String username);
 
-    UserDto signupCompany(SignupRequestDTO signupRequestDTO);
 }
